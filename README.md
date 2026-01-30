@@ -570,16 +570,7 @@ For production scaling:
 # docker-compose.yml
 environment:
   - LOG_LEVEL=DEBUG
-```
-
-## 📝 License
-
-[Add your license here]
-
-## 👥 Contributors
-
-[Add contributors here]
 
 ---
 
-**Made with ❤️ using FastAPI, LangGraph, and Docker**
+**Made with using FastAPI, LangGraph, and Docker**
