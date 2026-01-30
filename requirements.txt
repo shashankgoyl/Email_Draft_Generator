@@ -1,0 +1,26 @@
+# Core Framework
+fastapi
+uvicorn[standard]
+python-dotenv
+
+# AI & ML
+langchain-groq
+langchain-core
+langgraph
+scikit-learn
+joblib
+aiofiles
+
+# Gmail API
+google-auth
+google-auth-oauthlib
+google-auth-httplib2
+google-api-python-client
+
+# Utilities
+requests
+python-multipart
+
+langchain
+langchain_aws==0.2.35
+boto3

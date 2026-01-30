@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  email-generator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: email-draft-generator
+    ports:
+      - "8000:8000"
+    volumes:
+      # Persistent database storage
+      - ./data:/app/data
+      # Gmail credentials and token
+      - ./credentials:/app/credentials
+    environment:
+      # LLM Configuration
+      - LLM_MODEL=gpt-oss-20b
+      - AWS_REGION=eu-west-2
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+
+      # Database configuration
+      - DB_FILE=/app/data/email_history.db
+
+      # Gmail OAuth configuration
+      - GOOGLE_CREDENTIALS_PATH=/app/credentials/credentials.json
+      - GOOGLE_TOKEN_PATH=/app/credentials/token.json
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - email-network
+
+networks:
+  email-network:
+    driver: bridge
+
+volumes:
+  data:
+    driver: local
+  credentials:
+    driver: local
